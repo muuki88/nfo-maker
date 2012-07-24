@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+
+<BorderPane id="background" prefWidth="800.0" prefHeight="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="de.mukis.nfo.maker.NFOMakerAppController"
+    stylesheets="de/mukis/nfo/maker/main.css">
+    <fx:define>
+        <fx:include source="TVShows.fxml" fx:id="tvContent" />
+        <fx:include source="Movies.fxml" fx:id="movieContent" />
+        <fx:include source="Musicvideos.fxml" fx:id="movieContent" />
+    </fx:define>
+
+    <center>
+        <TabPane xmlns:fx="http://javafx.com/fxml">
+            <tabs>
+                <Tab text="TV Shows" fx:id="tvTab" content="$tvContent" closable="false" />
+                <Tab text="Movies" fx:id="movieTab" content="$movieContent" closable="false" />
+                <Tab text="Musicvideos" fx:id="musicvideoTab" content="$musicvideoContent" closable="false" />
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>
+

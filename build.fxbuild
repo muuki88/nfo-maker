@@ -1,0 +1,3 @@
+jfx.build.stagingdir = ${workspace}/nfo-maker/build
+jfx.build.apptitle = nfo-maker
+jfx.build.appversion = 0.0.1

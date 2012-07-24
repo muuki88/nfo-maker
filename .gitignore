@@ -1,0 +1,10 @@
+# libraries
+lib
+
+# Class
+*.class
+
+# Eclipse stuff
+# .project
+# .classpath
+# .settings

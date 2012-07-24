@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:id="moviesContent" spacing="10" translateY="40" translateX="20"
+    fx:controller="de.mukis.nfo.maker.MoviesController">
+    <children>
+        <Label text="Add New Dock of About" />
+        <Button text="Add !" onAction="#handleButtonAction" />
+    </children>
+</VBox>
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import de.mukis.nfo.maker.models.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml" fx:id="tvContent" spacing="10" alignment="top_left" fx:controller="de.mukis.nfo.maker.TVShowsController">
+    <GridPane hgap="10" vgap="10">
+        <padding>
+            <Insets top="25" right="25" bottom="10" left="25" />
+        </padding>
+
+        <Text fx:id="heading" text="tvshow.nfo" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
+
+        <Label text="Directory" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+        <TextField fx:id="txtDirectory" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Button text="Browse" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#onChooseDirectory" />
+
+        <Label text="Title" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+
+        <TextField fx:id="tvShowTitle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <TreeView fx:id="seasonTree" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" onMouseClicked="#onFileSelected" />
+
+        <Button text="Create" GridPane.columnIndex="0" GridPane.rowIndex="4" onAction="#onSave" />
+
+    </GridPane>
+
+    <GridPane hgap="10" vgap="10">
+        <padding>
+            <Insets top="25" right="25" bottom="10" left="25" />
+        </padding>
+
+        <Text fx:id="heading" text="TV Episode" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
+        
+
+        <Label text="Title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="txtEpisodeTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Season" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <ChoiceBox fx:id="txtEpisodeSeason" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label text="Episode" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <ChoiceBox fx:id="txtEpisodeNumber" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+    </GridPane>
+
+</HBox>
+
+

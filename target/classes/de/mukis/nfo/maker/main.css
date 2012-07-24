@@ -1,0 +1,167 @@
+.root { 
+    display: block;
+    
+    -fx-accent: -dark-green;
+    -fx-cell-hover-color: #298A08;
+    
+    -light-gray: #E6E6E6;
+    -light-black: rgb(74, 75, 78);
+    -dark-highlight: rgb(87, 89, 92);
+    -dark-black: rgb(39, 40, 40);
+    -darkest-black: rgb(5, 5, 5);
+    -mid-gray: rgb(216, 222, 227);
+    -dark-green: #298A08;
+    -light-green: #E0F8E0;
+    -fx-background-color: white;
+}
+
+/* does not work */
+.grid-pane {
+	-fx-hgap: 10.0;
+	-fx-vgap: 10.0;
+}
+/* ============= */
+
+#heading {
+	-fx-font-size: 20;
+}
+
+.button {
+	-fx-text-fill: -dark-black;
+    -fx-background-color: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-background-radius: 0;
+    -fx-background-insets: 0,4; 
+}
+
+.button:pressed {
+	-fx-text-fill: white;
+    -fx-background-color:  -dark-green;
+}
+
+.tool-bar {
+    -fx-base: -dark-black;
+    -fx-font-size: 12pt;
+    -fx-background-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: .9em 0.416667em .9em 0.416667em;
+    -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+}
+
+.tab-pane {
+    -fx-base: -dark-black;
+    -fx-font-size: 12pt;
+    -fx-background-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-insets: 0, 1 1 1 1;
+    -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+}
+.tab {
+	-fx-background-color: -dark-black;
+}
+
+.tab:selected {
+	-fx-background-color: white;
+}
+
+.tab:selected .tab-label  {
+	-fx-text-fill: -dark-black;
+	-fx-insets: 0 0 0 0;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * TreeView and TreeCell                                                       *
+ *                                                                             *
+ ******************************************************************************/
+
+.tree-view:focused {
+	-fx-background-color: -dark-green;
+}
+
+.tree-cell {
+	-fx-background-color: white;
+	-fx-indent: 10;
+}
+
+.tree-cell:selected {
+	-fx-background-color: -light-green;
+	-fx-border-style: none;
+	-fx-text-fill: -dark-black;
+}
+
+.tree-cell .tree-disclosure-node .arrow {
+    -fx-background-color: -dark-black;
+    -fx-padding: 0.333333em; /* 4 */
+    -fx-shape: "M 0 -4 L 8 0 L 0 4 z";
+}
+
+
+/*******************************************************************************
+ *                                                                             *
+ * TextField                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+.text-field {
+	-fx-background-color: white;
+	-fx-border-color: -mid-gray;
+}
+
+.text-field:focused {
+	-fx-border-color: -dark-green;
+	-fx-border-width: 2px;
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); 
+}
+
+
+.choice-box {
+	-fx-background-color: white;
+	-fx-border-color: -mid-gray;
+}
+
+.choice-box:focused {
+	-fx-border-color: -dark-green;
+	-fx-border-width: 2px;
+	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); 
+}
+
+.segmented-button-bar .button {
+    -fx-background-color:
+        -darkest-black,
+        -dark-highlight,
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0;
+    -fx-padding: 0.4em 1.833333em 0.4em 1.833333em;
+}
+
+.segmented-button-bar .button.first {
+    -fx-background-insets: 0, 1, 2 1 1 1;
+    -fx-background-radius: 3 0 0 3, 2 0 0 2, 2 0 0 2;
+}
+
+.segmented-button-bar .button.last {
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 2 2 0;
+}
+
+.segmented-button-bar .button:pressed {
+    -fx-background-color:
+        -darkest-black,
+        rgb(55, 57, 58),
+        linear-gradient(to top, -light-black 2%, -dark-black 98%);
+}
+
+.tool-bar .spacer {
+    -fx-padding: 0 5.417em 0 0;
+}
+
+#actiontarget {
+  -fx-fill: #FE2E2E;
+  -fx-font-weight: bold;
+  -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );  
+}
