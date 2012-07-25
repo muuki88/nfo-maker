@@ -7,16 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.control.TreeView.EditEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
@@ -129,7 +127,8 @@ public class TVShowsController implements Initializable {
 								setText("Season " + season.getSeason());
 							} else if (item instanceof Episode) {
 								Episode episode = (Episode) item;
-								setText(episode.getDetails().getEpisode() + " - " + episode.getDetails().getTitle());
+								//setText(episode.getDetails().getEpisode() + " - " + episode.getDetails().getTitle());
+								textProperty().bind(Bindings.concat(episode.getDetails().episodeProperty(), " - ", episode.getDetails().titleProperty()));
 							}
 						}
 					}
