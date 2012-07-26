@@ -78,17 +78,24 @@
  *                                                                             *
  ******************************************************************************/
 
-.tree-view:focused {
+.tree-view:focused, .list-view:focused {
 	-fx-background-color: -dark-green;
 }
 
-.tree-cell {
+.cell {
+	-fx-text-fill: -dark-black;
 	-fx-background-color: white;
 	-fx-indent: 10;
 }
 
-.tree-cell:selected {
+.cell:selected, .cell:hover {
 	-fx-background-color: -light-green;
+	-fx-border-style: none;
+	-fx-text-fill: -dark-black;
+}
+
+.list-cell:selected {
+	-fx-background-color: white;
 	-fx-border-style: none;
 	-fx-text-fill: -dark-black;
 }
@@ -98,6 +105,7 @@
     -fx-padding: 0.333333em; /* 4 */
     -fx-shape: "M 0 -4 L 8 0 L 0 4 z";
 }
+
 
 
 /*******************************************************************************
@@ -117,17 +125,86 @@
 	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); 
 }
 
-
-.choice-box {
-	-fx-background-color: white;
+/*******************************************************************************
+ *                                                                             *
+ * ComboBox                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+.combo-box-base  {
+    -fx-background-color: white;
 	-fx-border-color: -mid-gray;
+	-fx-text-fill: -dark-black;
 }
 
-.choice-box:focused {
-	-fx-border-color: -dark-green;
-	-fx-border-width: 2px;
-	-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); 
+.combo-box-base:hover {
+    -fx-color: -light-green;
 }
+
+/*------- THIS SPECIFIES THE BUTTON COLOR WHEN THE POPUP MENU IS SHOWING -------*/
+.combo-box-base:showing {
+    -fx-color: -light-grey;
+}
+
+.combo-box-base:focused {
+    -fx-background-color: white;
+    -fx-border-color: -dark-green;
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: .4;
+}
+
+.combo-box:selected {
+	-fx-border-color: -light-green;
+	-fx-text-fill: -dark-black;
+}
+
+.combo-box-base .arrow {
+	-fx-background-color: -dark-black;
+    -fx-padding: 0.333333em; /* 4 */
+}
+ 
+.combo-box-base .arrow-button {
+	-fx-background-color: white;
+    -fx-padding: 0.333333em; 
+}
+
+.combo-box .list-cell {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-text-fill: -dark-black;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em; /* 20 */
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: white;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-padding: 4 0 4 5;
+    
+    /* No alternate highlighting */
+    -fx-background-color: -light-green;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
+    -fx-background-color: -light-green;
+    -fx-text-fill: -mid-grey;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: -light-green;
+    -fx-text-fill: -dark-black;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * ToolBar                                                                     *
+ *                                                                             *
+ ******************************************************************************/
 
 .segmented-button-bar .button {
     -fx-background-color:
@@ -160,8 +237,8 @@
     -fx-padding: 0 5.417em 0 0;
 }
 
-#actiontarget {
-  -fx-fill: #FE2E2E;
+#statusLine {
+  -fx-fill: -dark-green;
   -fx-font-weight: bold;
   -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );  
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.geometry.*?>
 
-<BorderPane id="background" prefWidth="800.0" prefHeight="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="de.mukis.nfo.maker.NFOMakerAppController"
+<BorderPane id="background" prefWidth="800.0" prefHeight="650.0" xmlns:fx="http://javafx.com/fxml" fx:controller="de.mukis.nfo.maker.NFOMakerAppController"
     stylesheets="de/mukis/nfo/maker/main.css">
     <fx:define>
         <fx:include source="TVShows.fxml" fx:id="tvContent" />

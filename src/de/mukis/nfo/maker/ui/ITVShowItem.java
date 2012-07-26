@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.mukis.nfo.maker.model.Episodedetails;
+import de.mukis.nfo.maker.model.TVShow;
 
 public interface ITVShowItem {
 
@@ -18,32 +19,43 @@ public interface ITVShowItem {
 
 	public class Show extends TVShowItem {
 
-		private String name;
-		private final Map<Integer, Season> seasons = new HashMap<>();
+		private TVShow tvShow;
+		private final Map<Number, Season> seasons = new HashMap<>();
+		private final Path path;
 
-		public Show(String tvshow) {
-			this.name = tvshow;
+		public Show(Path path, String title) {
+			this.path = path;
+			this.tvShow = new TVShow();
+			tvShow.setTitle(title);
 		}
 
-		public String getName() {
-			return name;
+		public String getTitle() {
+			return tvShow.getTitle();
 		}
 
-		public void setName(String name) {
-			this.name = name;
+		public void setTitle(String title) {
+			tvShow.setTitle(title);
 		}
 		
-		public Season get(Integer season) {
+		public Path getPath() {
+			return path;
+		}
+		
+		public TVShow getTvShow() {
+			return tvShow;
+		}
+		
+		public Season get(Number season) {
 			if (seasons.containsKey(season))
 				return seasons.get(season);
 			return new Season(season, this);
 		}
 
-		public Season put(Integer season, Season value) {
+		public Season put(Number season, Season value) {
 			return seasons.put(season, value);
 		}
 
-		public Map<Integer, Season> getSeasons() {
+		public Map<Number, Season> getSeasons() {
 			return seasons;
 		}
 
@@ -51,17 +63,17 @@ public interface ITVShowItem {
 
 	public class Season extends TVShowItem {
 
-		private int season;
-		private final Map<Integer, Episode> episodes = new HashMap<>();
+		private Number season;
+		private final Map<Number, Episode> episodes = new HashMap<>();
 		private final Show show;
 
-		public Season(int season, Show show) {
+		public Season(Number season, Show show) {
 			this.show = show;
 			this.season = season;
 			show.put(season, this);
 		}
 
-		public int getSeason() {
+		public Number getSeason() {
 			return season;
 		}
 		
@@ -69,15 +81,15 @@ public interface ITVShowItem {
 			return show;
 		}
 
-		public Episode get(Integer episode) {
+		public Episode get(Number episode) {
 			return episodes.get(episode);
 		}
 
-		public Episode put(Integer episode, Episode value) {
+		public Episode put(Number episode, Episode value) {
 			return episodes.put(episode, value);
 		}
 
-		public Map<Integer, Episode> getEpisodes() {
+		public Map<Number, Episode> getEpisodes() {
 			return episodes;
 		}
 
@@ -87,8 +99,10 @@ public interface ITVShowItem {
 
 		private final Episodedetails details;
 		private final Season season;
+		private Path path;
 
 		public Episode(Path path, Episodedetails details, Season season) {
+			this.path = path;
 			this.details = details;
 			this.season = season;
 			season.put(details.getEpisode(), this);
@@ -100,6 +114,10 @@ public interface ITVShowItem {
 		
 		public Season getSeason() {
 			return season;
+		}
+		
+		public Path getPath() {
+			return path;
 		}
 	}
 }

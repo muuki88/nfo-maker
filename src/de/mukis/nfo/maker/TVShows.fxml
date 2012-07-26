@@ -24,11 +24,13 @@
 
         <Label text="Title" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
-        <TextField fx:id="tvShowTitle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="txtTvShowTitle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
         <TreeView fx:id="seasonTree" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" onMouseClicked="#onFileSelected" />
 
         <Button text="Create" GridPane.columnIndex="0" GridPane.rowIndex="4" onAction="#onSave" />
+        
+        <Text fx:id="statusLine" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"  />
 
     </GridPane>
 
@@ -38,14 +40,13 @@
         </padding>
 
         <Text fx:id="heading" text="TV Episode" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
-        
 
         <Label text="Title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <TextField fx:id="txtEpisodeTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Label text="Season" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <ChoiceBox fx:id="txtEpisodeSeason" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <ComboBox fx:id="choiceSeasonNumber" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label text="Episode" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <ChoiceBox fx:id="txtEpisodeNumber" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <ComboBox fx:id="choiceEpisodeNumber" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
     </GridPane>
 

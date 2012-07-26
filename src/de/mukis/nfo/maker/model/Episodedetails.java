@@ -1,9 +1,7 @@
 package de.mukis.nfo.maker.model;
 
-import java.beans.Transient;
-import java.nio.file.Path;
-
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -19,21 +17,7 @@ public class Episodedetails implements Comparable<Episodedetails> {
 	private final StringProperty title = new SimpleStringProperty("");
 	private final IntegerProperty season = new SimpleIntegerProperty(-1);
 	private final IntegerProperty episode = new SimpleIntegerProperty(-1);
-
-	/* ======= TRANSIENT ====== */
-	private Path path;
-
-	@Transient
-	public Path getPath() {
-		return path;
-	}
-
-	public void setPath(Path path) {
-		this.path = path;
-	}
-
-	/* ======================== */
-
+	
 	public String getTitle() {
 		return title.get();
 	}
@@ -54,7 +38,7 @@ public class Episodedetails implements Comparable<Episodedetails> {
 		season.set(value);
 	}
 
-	public IntegerProperty seasonProperty() {
+	public Property<Number> seasonProperty() {
 		return season;
 	}
 
@@ -66,20 +50,20 @@ public class Episodedetails implements Comparable<Episodedetails> {
 		episode.set(value);
 	}
 
-	public IntegerProperty episodeProperty() {
+	public Property<Number> episodeProperty() {
 		return episode;
 	}
 
 	@Override
 	public int compareTo(Episodedetails o) {
-		if (season.greaterThan(o.seasonProperty()).get())
+		if (season.greaterThan(o.season).get())
 			return 1;
-		else if (!season.greaterThanOrEqualTo(o.seasonProperty()).get())
+		else if (!season.greaterThanOrEqualTo(o.season).get())
 			return -1;
 		else { //Equal season
-			if (episode.greaterThan(o.episodeProperty()).get())
+			if (episode.greaterThan(o.episode).get())
 				return 1;
-			else if (!episode.greaterThanOrEqualTo(o.episodeProperty()).get())
+			else if (!episode.greaterThanOrEqualTo(o.episode).get())
 				return -1;
 		}
 		return 0;
@@ -89,11 +73,6 @@ public class Episodedetails implements Comparable<Episodedetails> {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Episodedetails [");
-		if (getPath() != null) {
-			builder.append("getPath()=");
-			builder.append(getPath());
-			builder.append(", ");
-		}
 		if (getTitle() != null) {
 			builder.append("getTitle()=");
 			builder.append(getTitle());
