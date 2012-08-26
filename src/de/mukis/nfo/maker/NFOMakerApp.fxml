@@ -11,7 +11,7 @@
     <fx:define>
         <fx:include source="TVShows.fxml" fx:id="tvContent" />
         <fx:include source="Movies.fxml" fx:id="movieContent" />
-        <fx:include source="Musicvideos.fxml" fx:id="movieContent" />
+        <fx:include source="Musicvideos.fxml" fx:id="musicvideoContent" />
     </fx:define>
 
     <center>
@@ -19,7 +19,7 @@
             <tabs>
                 <Tab text="TV Shows" fx:id="tvTab" content="$tvContent" closable="false" />
                 <Tab text="Movies" fx:id="movieTab" content="$movieContent" closable="false" />
-                <Tab text="Musicvideos" fx:id="musicvideoTab" content="$musicvideoContent" closable="false" />
+                <Tab text="Music Videos" fx:id="musicvideoTab" content="$musicvideoContent" closable="false" />
             </tabs>
         </TabPane>
     </center>
