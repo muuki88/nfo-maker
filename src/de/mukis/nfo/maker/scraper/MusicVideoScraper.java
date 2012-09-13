@@ -39,7 +39,12 @@ public class MusicVideoScraper implements IScraper<MusicVideo> {
 		} else if (split.length == 2) {
 			video.setArtist(split[0].trim());
 			video.setTitle(Scraper.removeFileEnding(split[1]).trim());
+		} else {
+			// Guessings here
+			video.setArtist(split[0].trim());
+			video.setTitle(Scraper.removeFileEnding(split[1]).trim());
 		}
+
 		return Optional.of(video);
 	}
 

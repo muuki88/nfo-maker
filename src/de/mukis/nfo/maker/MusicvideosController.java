@@ -1,8 +1,11 @@
 package de.mukis.nfo.maker;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -14,14 +17,19 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+
+import javax.xml.bind.JAXB;
+
 import de.mukis.nfo.maker.model.MusicVideo;
 import de.mukis.nfo.maker.scraper.MusicVideoScraper;
 import de.mukis.nfo.maker.scraper.Scraper;
 import de.mukis.nfo.maker.ui.IMusicVideoItem;
+import de.mukis.nfo.maker.ui.IMusicVideoItem.Video;
 
 public class MusicvideosController extends ScrapController {
 
 	private MusicVideo video;
+	private IMusicVideoItem.Artist artist;
 
 	@FXML
 	private TextField txtArtist;
@@ -37,11 +45,27 @@ public class MusicvideosController extends ScrapController {
 	@FXML
 	private TextField txtVideoTitle;
 
+	@FXML
+	private TextField txtVideoAlbum;
+
 	/* =============================== */
 
-	@FXML
 	protected void onSave(ActionEvent event) {
-		System.out.println("MusicvideosController.onSave()");
+		for (TreeItem<IMusicVideoItem> artistItem : artistTree.getRoot().getChildren()) {
+			for (TreeItem<IMusicVideoItem> videoItem : artistItem.getChildren()) {
+				IMusicVideoItem.Video video = (IMusicVideoItem.Video) videoItem.getValue();
+				Path videoFile = video.getFile();
+				Path nfoFile = videoFile.getParent().resolve(videoFile.getFileName().toString().replaceAll("\\.\\w{3,4}$", ".nfo"));
+				try (OutputStream out = Files.newOutputStream(nfoFile, StandardOpenOption.CREATE, StandardOpenOption.WRITE,
+						StandardOpenOption.TRUNCATE_EXISTING)) {
+					JAXB.marshal(video.getVideo(), out);
+				} catch (IOException e) {
+					// TODO exception handling
+					e.printStackTrace();
+				}
+			}
+		}
+		statusLine.setText("Successfully written");
 	}
 
 	@FXML
@@ -52,28 +76,41 @@ public class MusicvideosController extends ScrapController {
 
 		if (item.getValue() instanceof IMusicVideoItem.Video) {
 			// unbind
-			if (video != null) {
-				video.titleProperty().unbindBidirectional(txtVideoTitle.textProperty());
-			}
+			unbindVideo();
+			unbindArtist();
 
 			// bind
-			video = ((IMusicVideoItem.Video) item.getValue()).getVideo();
-			txtVideoTitle.textProperty().bindBidirectional(video.titleProperty());
+			bindVideo((IMusicVideoItem.Video) item.getValue());
+			bindArtist(((IMusicVideoItem.Video) item.getValue()).getArtist());
 		} else if (item.getValue() instanceof IMusicVideoItem.Artist) {
-
+			unbindArtist();
+			unbindVideo();
+			bindArtist((IMusicVideoItem.Artist) item.getValue());
 		}
 	}
 
 	@Override
 	protected void clear() {
-		System.out.println("MusicvideosController.clear()");
+		unbindArtist();
+		unbindVideo();
+		artistTree.setRoot(null);
+		txtVideoAlbum.textProperty().unbind();
+		txtVideoTitle.textProperty().unbind();
+		txtArtist.textProperty().unbind();
+		txtVideoAlbum.setText("");
+		txtVideoTitle.setText("");
+		txtArtist.setText("");
+		super.clear();
 	}
 
 	@Override
 	protected void update(Path dir) {
+		unbindArtist();
+		unbindVideo();
+		clear();
+		txtDirectory.setText(dir.toString());
 		try {
 			List<MusicVideo> videos = Scraper.findList(dir, new MusicVideoScraper(), MusicVideo.class);
-			System.out.println(videos);
 
 			IMusicVideoItem.MusicVideoItem root = new IMusicVideoItem.MusicVideoItem();
 			TreeItem<IMusicVideoItem> rootItem = new TreeItem<>((IMusicVideoItem) root);
@@ -110,7 +147,9 @@ public class MusicvideosController extends ScrapController {
 
 							if (item instanceof IMusicVideoItem.Artist) {
 								IMusicVideoItem.Artist artist = (IMusicVideoItem.Artist) item;
-								setText(artist.getName());
+								// TODO no checks
+								Video video = artist.getVideos().values().iterator().next();
+								textProperty().bind(video.getVideo().artistProperty());
 							} else if (item instanceof IMusicVideoItem.Video) {
 								IMusicVideoItem.Video video = (IMusicVideoItem.Video) item;
 								textProperty().bind(video.getVideo().titleProperty());
@@ -119,5 +158,33 @@ public class MusicvideosController extends ScrapController {
 				};
 			}
 		});
+	}
+
+	private void bindVideo(IMusicVideoItem.Video videoItem) {
+		video = videoItem.getVideo();
+		txtVideoTitle.textProperty().bindBidirectional(video.titleProperty());
+		txtVideoAlbum.textProperty().bindBidirectional(video.albumProperty());
+	}
+
+	private void bindArtist(IMusicVideoItem.Artist artistItem) {
+		artist = artistItem;
+		for (IMusicVideoItem.Video video : this.artist.getVideos().values()) {
+			txtArtist.textProperty().bindBidirectional(video.getVideo().artistProperty());
+		}
+	}
+
+	private void unbindVideo() {
+		if (video != null) {
+			video.titleProperty().unbindBidirectional(txtVideoTitle.textProperty());
+			video.albumProperty().unbindBidirectional(txtVideoAlbum.textProperty());
+		}
+	}
+
+	private void unbindArtist() {
+		if (this.artist != null) {
+			for (IMusicVideoItem.Video video : artist.getVideos().values()) {
+				txtArtist.textProperty().unbindBidirectional(video.getVideo().artistProperty());
+			}
+		}
 	}
 }

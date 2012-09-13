@@ -40,8 +40,8 @@ public class TVShowsController implements Initializable {
 
 	private Episodedetails episode;
 	private Show show;
-	private static final ObservableList<Number> DEFAULT_EPISODES = FXCollections.observableArrayList(
-			new Number[] { 1, 2, 3, 4, 5, 6, 7, 8,	9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 });
+	private static final ObservableList<Number> DEFAULT_EPISODES = FXCollections.observableArrayList(new Number[] { 1, 2, 3, 4, 5, 6, 7, 8,
+			9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 });
 
 	@FXML
 	private Pane tvContent;
@@ -51,7 +51,7 @@ public class TVShowsController implements Initializable {
 
 	@FXML
 	private TextField txtTvShowTitle;
-	
+
 	@FXML
 	private Text statusLine;
 
@@ -75,6 +75,8 @@ public class TVShowsController implements Initializable {
 	protected void onChooseDirectory(ActionEvent event) {
 		DirectoryChooser fc = new DirectoryChooser();
 		File directory = fc.showDialog(tvContent.getScene().getWindow());
+
+		// clear
 		if (directory == null) {
 			txtDirectory.setText("");
 			txtTvShowTitle.setText("");
@@ -98,16 +100,16 @@ public class TVShowsController implements Initializable {
 			}
 
 			seasonTree.setRoot(root);
-			if(show != null) {
+			if (show != null) {
 				show.getTvShow().titleProperty().unbindBidirectional(txtTvShowTitle.textProperty());
 			}
 			txtTvShowTitle.textProperty().bindBidirectional(show.getTvShow().titleProperty());
-			
-			//Seasonlist
+
+			// Seasonlist
 			ObservableList<Number> seaonsList = FXCollections.observableArrayList(show.getSeasons().keySet());
 			choiceSeasonNumber.setItems(seaonsList);
 			choiceEpisodeNumber.setItems(DEFAULT_EPISODES);
-		
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -116,20 +118,21 @@ public class TVShowsController implements Initializable {
 
 	@FXML
 	protected void onSave(ActionEvent event) {
-		try(OutputStream outShow = Files.newOutputStream(show.getPath().resolve("tvshow.nfo"))) {
+		try (OutputStream outShow = Files.newOutputStream(show.getPath().resolve("tvshow.nfo"))) {
 			JAXB.marshal(show.getTvShow(), outShow);
 
 			for (Season season : show.getSeasons().values()) {
 				for (Episode episode : season.getEpisodes().values()) {
 					String episodeNFO = episode.getPath().getFileName().toString().replaceAll("\\.\\w{3}$", ".nfo");
 					Path episodeNFOPath = episode.getPath().getParent().resolve(episodeNFO);
-					try(OutputStream outEpisode = Files.newOutputStream(episodeNFOPath)) {
+					try (OutputStream outEpisode = Files.newOutputStream(episodeNFOPath)) {
 						JAXB.marshal(episode.getDetails(), outEpisode);
 					}
-					
+
 				}
 			}
 		} catch (IOException e) {
+			// TODO exception handling
 			e.printStackTrace();
 		}
 		statusLine.setText("Successfully created all files");
@@ -187,12 +190,13 @@ public class TVShowsController implements Initializable {
 				};
 			}
 		});
-		
+
 		choiceSeasonNumber.setConverter(new StringConverter<Number>() {
 			@Override
 			public String toString(Number object) {
 				return object.toString();
 			}
+
 			@Override
 			public Number fromString(String string) {
 				try {
@@ -202,12 +206,13 @@ public class TVShowsController implements Initializable {
 				}
 			}
 		});
-		
+
 		choiceEpisodeNumber.setConverter(new StringConverter<Number>() {
 			@Override
 			public String toString(Number object) {
 				return object.toString();
 			}
+
 			@Override
 			public Number fromString(String string) {
 				try {

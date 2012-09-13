@@ -13,6 +13,8 @@ import javafx.stage.DirectoryChooser;
 
 abstract public class ScrapController implements Initializable {
 
+	private File lastDirectory;
+
 	@FXML
 	protected Pane content;
 
@@ -25,15 +27,26 @@ abstract public class ScrapController implements Initializable {
 	@FXML
 	protected void onChooseDirectory(ActionEvent event) {
 		DirectoryChooser fc = new DirectoryChooser();
+		fc.setTitle("Choose directory");
+		if (lastDirectory != null)
+			fc.setInitialDirectory(lastDirectory);
 		File directory = fc.showDialog(content.getScene().getWindow());
 		if (directory == null) {
 			clear();
 			return;
 		}
+		lastDirectory = directory;
+		txtDirectory.setText(directory.getAbsolutePath());
 		update(directory.toPath());
 	}
 
-	abstract protected void clear();
+	protected void clear() {
+		txtDirectory.setText("");
+		statusLine.setText("");
+	}
+
+	@FXML
+	abstract protected void onSave(ActionEvent event);
 
 	abstract protected void update(Path dir);
 }

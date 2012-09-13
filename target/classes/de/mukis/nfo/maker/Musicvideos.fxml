@@ -47,6 +47,12 @@
 
         <Label text="Title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <TextField fx:id="txtVideoTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        
+        <Label text="Album" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="txtVideoAlbum" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        
+        <Label text="Track" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="txtVideoTrack" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
     </GridPane>
 

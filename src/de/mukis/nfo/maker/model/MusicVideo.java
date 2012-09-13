@@ -11,19 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-/*
- <musicvideo>
- <title>Bestsongintheworld</title>
- <artist>Bestartistintheworld</artist>
- <album>Me</album>
- <genre>Pop</genre>
- <runtime>3:20</runtime>
- <plot>Scantly clad women hoing about</plot>
- <year>2000</year>
- <director>and I</director>
- <studio>Ego prod.</studio>
- </musicvideo>*/
-
 /**
  * 
  * @author Nepomuk Seiler
@@ -37,7 +24,7 @@ public class MusicVideo {
 	private final StringProperty title = new SimpleStringProperty("");
 	private final StringProperty artist = new SimpleStringProperty("");
 	private final StringProperty album = new SimpleStringProperty("");
-	private String genre;
+	private final StringProperty genre = new SimpleStringProperty("");
 	private String runtime;
 	private String plot;
 	private Integer year;
@@ -50,8 +37,10 @@ public class MusicVideo {
 	}
 
 	public MusicVideo(String title, String artist, String album, String genre) {
-		this();
-		this.genre = genre;
+		this.title.set(title);
+		this.artist.set(artist);
+		this.album.set(album);
+		this.genre.set(genre);
 	}
 
 	public String getTitle() {
@@ -91,11 +80,15 @@ public class MusicVideo {
 	}
 
 	public String getGenre() {
-		return genre;
+		return genre.get();
 	}
 
 	public void setGenre(String genre) {
-		this.genre = genre;
+		this.genre.set(genre);
+	}
+
+	public StringProperty genreProperty() {
+		return genre;
 	}
 
 	public String getRuntime() {
