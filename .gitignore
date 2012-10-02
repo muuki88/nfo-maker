@@ -8,3 +8,7 @@ lib
 # .project
 # .classpath
 # .settings
+
+
+test/musicvideos
+target
