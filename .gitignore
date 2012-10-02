@@ -3,12 +3,13 @@ lib
 
 # Class
 *.class
+*.nfo
 
 # Eclipse stuff
 # .project
 # .classpath
 # .settings
 
-
+#
 test/musicvideos
 target

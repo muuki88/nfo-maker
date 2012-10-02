@@ -8,7 +8,7 @@
 <?import javafx.geometry.*?>
 <?import de.mukis.nfo.maker.models.*?>
 
-<HBox xmlns:fx="http://javafx.com/fxml" fx:id="tvContent" spacing="10" alignment="top_left" fx:controller="de.mukis.nfo.maker.TVShowsController">
+<HBox xmlns:fx="http://javafx.com/fxml" fx:id="content" spacing="10" alignment="top_left" fx:controller="de.mukis.nfo.maker.TVShowsController">
     <GridPane hgap="10" vgap="10">
         <padding>
             <Insets top="25" right="25" bottom="10" left="25" />

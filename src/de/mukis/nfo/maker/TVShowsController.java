@@ -14,15 +14,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -36,7 +33,7 @@ import de.mukis.nfo.maker.ui.ITVShowItem.Episode;
 import de.mukis.nfo.maker.ui.ITVShowItem.Season;
 import de.mukis.nfo.maker.ui.ITVShowItem.Show;
 
-public class TVShowsController implements Initializable {
+public class TVShowsController extends ScrapController {
 
 	private Episodedetails episode;
 	private Show show;
@@ -44,16 +41,7 @@ public class TVShowsController implements Initializable {
 			9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 });
 
 	@FXML
-	private Pane tvContent;
-
-	@FXML
-	private TextField txtDirectory;
-
-	@FXML
 	private TextField txtTvShowTitle;
-
-	@FXML
-	private Text statusLine;
 
 	/* ========= Details View ====== */
 
@@ -71,10 +59,10 @@ public class TVShowsController implements Initializable {
 
 	/* =============================== */
 
-	@FXML
+	@Override
 	protected void onChooseDirectory(ActionEvent event) {
 		DirectoryChooser fc = new DirectoryChooser();
-		File directory = fc.showDialog(tvContent.getScene().getWindow());
+		File directory = fc.showDialog(content.getScene().getWindow());
 
 		// clear
 		if (directory == null) {
@@ -116,7 +104,7 @@ public class TVShowsController implements Initializable {
 
 	}
 
-	@FXML
+	@Override
 	protected void onSave(ActionEvent event) {
 		try (OutputStream outShow = Files.newOutputStream(show.getPath().resolve("tvshow.nfo"))) {
 			JAXB.marshal(show.getTvShow(), outShow);
@@ -222,6 +210,11 @@ public class TVShowsController implements Initializable {
 				}
 			}
 		});
+
+	}
+
+	@Override
+	protected void update(Path dir) {
 
 	}
 }

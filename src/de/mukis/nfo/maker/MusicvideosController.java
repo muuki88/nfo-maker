@@ -50,6 +50,7 @@ public class MusicvideosController extends ScrapController {
 
 	/* =============================== */
 
+	@Override
 	protected void onSave(ActionEvent event) {
 		for (TreeItem<IMusicVideoItem> artistItem : artistTree.getRoot().getChildren()) {
 			for (TreeItem<IMusicVideoItem> videoItem : artistItem.getChildren()) {
